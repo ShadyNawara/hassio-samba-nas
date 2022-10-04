@@ -32,7 +32,7 @@ function mount_disk() { # $1 disk $2 path $3 remote_mount
           return 0
      else 
           if [ "$remote_mount" = true ] ; then
-          ssh root@${ipaddress%/*} -p 22222 -o "StrictHostKeyChecking no" "if grep -qs '/mnt/data/supervisor/media/$disk ' /proc/mounts; then echo 'Disk $disk already mounted on host' ; else  mount -t auto $devpath/$disk /mnt/data/supervisor/media/$disk -o nosuid,relatime,noexec; fi" \
+          ssh root@${ipaddress%/*} -p 22222 -o "StrictHostKeyChecking no" "if grep -qs '/media/$disk ' /proc/mounts; then echo 'Disk $disk already mounted on host' ; else  mount -t auto $devpath/$disk /media/$disk -o nosuid,relatime,noexec; fi" \
                && echo $devpath/$disk >> /tmp/remote_mount
           fi || bashio::log.warning "Host Mount ${disk} Fail!" || :
           mount -t auto $devpath/$disk $path/$disk -o nosuid,relatime,noexec \
